@@ -1,0 +1,36 @@
+<div *ngFor="let element of elements" class="mb-6 p-6 bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-200">
+  <h2 class="text-2xl font-semibold text-gray-800">{{ element.name }}</h2>
+  <p class="mt-2 text-gray-600">{{ element.description }}</p>
+  <p class="mt-1 text-gray-800 font-bold">Prix : {{ element.price | currency: "GNF" }}</p>
+  <p class="mt-1 text-gray-600">Localisation : {{ element.locate }}</p>
+  <p class="mt-1 text-gray-600">Taille : {{ element.size }} m²</p>
+  <p class="mt-1 text-gray-600">Date de création : {{ element.createdDate | date }}</p>
+  <p class="mt-1 text-gray-600">Type d'élément : {{ element.elementType.name }}</p>
+
+  <div class="mt-4 grid grid-cols-2 gap-4"> 
+    <ng-container *ngFor="let image of element.images">
+      <div class="relative group">
+        <img *ngIf="image.isActif" [src]="'https://abc.monimba.com/' + image.url" [alt]="image.alt"
+             class="w-full h-auto object-cover rounded-md shadow-sm transition-transform duration-300 transform group-hover:scale-105" />
+      </div>
+    </ng-container>
+  </div>
+
+  <h3 class="mt-6 text-lg font-semibold border-b border-gray-300 pb-2">Détails des pièces :</h3>
+  <div *ngFor="let piece of element.pieces" class="mt-2 border-t border-gray-300 pt-2">
+    <h4 class="font-medium">{{ piece.description }} ({{ piece.surface }} m²)</h4>
+    <div *ngFor="let item of piece.items" class="mt-1">
+      <p>- {{ item.space }} ({{ item.type }})</p>
+    </div>
+    <p *ngIf="piece.items.length === 0" class="text-gray-500">Aucun meuble dans cette pièce.</p>
+  </div>
+
+  <h3 class="mt-6 text-lg font-semibold border-b border-gray-300 pb-2">Informations sur l'utilisateur :</h3>
+  <p>Nom : {{ element.user.fullName }}</p>
+  <p>Email : {{ element.user.email }}</p>
+  <p>Téléphone : {{ element.user.telephone }}</p>
+  
+  <h3 class="mt-6 text-lg font-semibold border-b border-gray-300 pb-2">Catégorie :</h3>
+  <p>Nom : {{ element.category.name }}</p>
+  <p>Information : {{ element.category.info }}</p>
+</div>
